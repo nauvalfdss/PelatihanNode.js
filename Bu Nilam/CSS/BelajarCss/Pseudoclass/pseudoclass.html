@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PseudoClass</title>
+    <!-- kalau class harus di awali dengan .selector -->
+    <style>
+      .hello {
+        color: blue;
+        text-decoration: none;
+      }
+      /* kursor didekatkan */
+      .hello:hover {
+        font-size: 80px;
+        color: red;
+      }
+      /* ketika diklik */
+      .hello:active {
+        font-style: italic;
+      }
+      /* pernah dikunjungi */
+      .hello:visited {
+        color: green;
+      }
+
+      /* pseudo element */
+      li:first-child a {
+        color: red;
+      }
+      li:last-child a {
+        color: green;
+      }
+      li:nth-child(2) a {
+        color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="" class="hello"> Hello Word</a>
+
+    <ul>
+      <li><a href="">Link 1</a></li>
+      <li><a href="">Link 2</a></li>
+      <li><a href="">Link 3</a></li>
+    </ul>
+  </body>
+</html>
