@@ -1,0 +1,13 @@
+body {
+  /* background-color: aqua; */
+  /* background-image: url(Gambar/); */
+
+  /* background gradasi */
+  background-image: url();
+  /* yg artinya dia akan mengulang dari kanan kekiri */
+  background-repeat: repeat-y;
+  /* yg artinya dia akan mengulang dari atas kebawah */
+  background-repeat: repeat-x;
+  /* untuk posisi */
+  background-position: bottom center;
+}
