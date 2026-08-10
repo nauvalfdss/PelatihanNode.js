@@ -6,7 +6,7 @@ function readBooks(time, book, callback) {
         if (time >= book.timeSpent) {
             sisaWaktu = time - book.timeSpent
             console.log("saya sudah membaca " + book.name + ", sisa waktu saya " + sisaWaktu)
-            callback(sisaWaktu) //Menjalankanfunctio callback
+            callback(sisaWaktu) //Menjalankan function callback
         } else {
             console.log('waktu saya habis');
             callback(time);
