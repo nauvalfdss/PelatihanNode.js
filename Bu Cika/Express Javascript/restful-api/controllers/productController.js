@@ -57,10 +57,10 @@ exports.updateProduct = (req, res) => {
 // Menghapus Produk
 exports.deleteProduct = (req, res) => {
     const id = parseInt(req.params.id);
-    const index = products.findIndex(p => p.id === id);
+    const product = products.findIndex(p => p.id === id);
 
-    if (index === -1) return res.status(404).json({ message: 'Produk tidak ditemukan' });
+    if (product === -1) return res.status(404).json({ message: 'Produk tidak ditemukan' });
 
-    products.splice(index, 1);
+    products.splice(product, 1);
     res.status(204).send();
 };
