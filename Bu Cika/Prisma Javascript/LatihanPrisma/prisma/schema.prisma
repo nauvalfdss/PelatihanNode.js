@@ -30,5 +30,4 @@ model Movie{
   updatedAt     DateTime  @updatedAt @default(now())
   category      Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   categoryId    Int?      
-
 }
