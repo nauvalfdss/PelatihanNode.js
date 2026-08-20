@@ -1,12 +1,18 @@
 import axios from "axios"
 import { useState } from "react"
+// import { useState, useEffect } from "react"
+
 
 
 function TambahDataTamu() {
+    // kita siapkan state untuk wadahnya
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState("");
+
     const [form, setForm] = useState({
         nama_tamu : "",
         email_tamu : "",
-        komentar_tamu : ""
+        komentar_tamu : "",
     })
 
     // fungsi untuk menyimpan data inputan ke state
