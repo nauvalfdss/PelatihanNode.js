@@ -10,6 +10,7 @@ import DataUser from "./pages/DataUser";
 import Coffee from "./pages/Coffee";
 import DataTamu from "./pages/DataTamu";
 import TambahDataTamu from "./pages/TambahDataTamu";
+import EditDataTamu from "./pages/EditDataTamu";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/coffee" element={<Coffee />} />
         <Route path="/data-tamu" element={<DataTamu />} />
         <Route path="/tambah-data-tamu" element={<TambahDataTamu />} />
+        <Route path="/edit-data-tamu/:id" element={<EditDataTamu />} />
       </Routes>
     </BrowserRouter>
   );

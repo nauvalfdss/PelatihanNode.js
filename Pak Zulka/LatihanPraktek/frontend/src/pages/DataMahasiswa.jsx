@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function DataTamu() {
+function DataMahasiswa() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -13,7 +13,7 @@ function DataTamu() {
 
     const getData = () => {
         axios
-            .get("https://mytechs.my.id/data-siswa-api/api-buku-tamu.php")
+            .get("http://localhost:3000/api/mahasiswa")
             .then((response) => {
                 console.log(response.data);
                 setPosts(response.data);
@@ -37,7 +37,7 @@ function DataTamu() {
 
         axios
             .delete(
-                `https://mytechs.my.id/data-siswa-api/api-buku-tamu.php?id=${id}`
+                `http://localhost:3000/api/mahasiswa/${id}`
             )
             .then((response) => {
                 alert("Data Berhasil di Hapus");
@@ -51,12 +51,12 @@ function DataTamu() {
 
     return (
         <>
-            <h1>Data Tamu dan Komentar atau Pesannya</h1>
+            <h1>Data Mahasiswa</h1>
             <hr />
 
             <Link
                 className="btn btn-primary col-12 my-3"
-                to="/tambah-data-tamu"
+                to="/tambah-data-mahasiswa"
             >
                 Tambah
             </Link>
@@ -87,37 +87,37 @@ function DataTamu() {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nama Tamu</th>
-                            <th>Email Tamu</th>
-                            <th>Komentar Tamu</th>
+                            <th>Nama Mahasiswa</th>
+                            <th>Kelas Mahasiswa</th>
+                            <th>Email Mahasiswa</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
 
                     <tbody>
                         {posts.map((post) => (
-                            <tr key={post.id_tamu}>
-                                <td>{post.id_tamu}</td>
-                                <td>{post.nama_tamu}</td>
-                                <td>{post.email_tamu}</td>
-                                <td>{post.komentar_tamu}</td>
+                            <tr key={post.id}>
+                                <td>{post.id}</td>
+                                <td>{post.nama}</td>
+                                <td>{post.kelas}</td>
+                                <td>{post.email}</td>
 
                                 <td>
+                                    <Link
+                                        className="btn btn-success me-2 my-2"
+                                        to={`/edit-data-mahasiswa/${post.id}`}
+                                    >
+                                        Edit
+                                    </Link>
+
                                     <button
-                                        className="btn btn-danger me-2 my-2"
+                                        className="btn btn-danger "
                                         onClick={() =>
-                                            handleDelete(post.id_tamu)
+                                            handleDelete(post.id)
                                         }
                                     >
                                         Hapus
                                     </button>
-
-                                    <Link
-                                        className="btn btn-success"
-                                        to={`/edit-data-tamu/${post.id_tamu}`}
-                                    >
-                                        Edit
-                                    </Link>
                                 </td>
                             </tr>
                         ))}
@@ -128,4 +128,4 @@ function DataTamu() {
     );
 }
 
-export default DataTamu;
+export default DataMahasiswa;
