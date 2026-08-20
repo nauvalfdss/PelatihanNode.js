@@ -13,67 +13,106 @@ function EditDataMahasiswa() {
     });
 
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    // Ambil data tamu berdasarkan ID
     const getDataMahasiswa = async () => {
         try {
+            setLoading(true);
+            setError("");
+
+            console.log("ID yang akan diambil:", id);
+
             const response = await axios.get(
-                `http://localhost:3000/api/mahasiswa?id=${id}`
+                `http://localhost:3000/api/mahasiswa/${id}`
             );
 
-            console.log("Response:", response.data);
+            console.log("Data dari backend:", response.data);
 
-            const data = response.data[0];
+            const data = response.data;
 
             setForm({
                 nama: data.nama,
                 kelas: data.kelas,
                 email: data.email,
             });
+
         } catch (error) {
-            console.error(error);
+            console.error("Gagal mengambil data:", error);
+
+            setError(
+                error.response?.data?.message ||
+                "Data mahasiswa gagal diambil"
+            );
         } finally {
             setLoading(false);
         }
     };
 
-    // Jalankan ketika halaman Edit dibuka
+
     useEffect(() => {
         getDataMahasiswa();
     }, [id]);
 
-    // Menangani perubahan input
     const handleChange = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+
+        setForm((prevForm) => ({
+            ...prevForm,
+            [name]: value,
+        }));
     };
 
-    // Menyimpan perubahan
     const handleUpdate = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post(
-                `http://localhost:3000/api/mahasiswa?id=${id}`,
+            console.log("Update ID:", id);
+            console.log("Data update:", form);
+
+            const response = await axios.put(
+                `http://localhost:3000/api/mahasiswa/${id}`,
                 form
             );
 
-            console.log(response.data);
+            console.log("Response update:", response.data);
 
             alert("Data berhasil diupdate!");
 
-            navigate("/");
-        } catch (error) {
-            console.error(error);
+            navigate("/mahasiswa");
 
-            alert("Data gagal diupdate!");
+        } catch (error) {
+            console.error("Gagal update:", error);
+
+            alert(
+                error.response?.data?.message ||
+                "Data gagal diupdate!"
+            );
         }
     };
 
     if (loading) {
-        return <p>Loading data...</p>;
+        return (
+            <div className="text-center mt-4">
+                <div
+                    className="spinner-border text-primary"
+                    role="status"
+                >
+                    <span className="visually-hidden">
+                        Loading...
+                    </span>
+                </div>
+
+                <p>Loading data mahasiswa...</p>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="alert alert-danger mt-4">
+                {error}
+            </div>
+        );
     }
 
     return (
@@ -82,7 +121,6 @@ function EditDataMahasiswa() {
             <hr />
 
             <form onSubmit={handleUpdate}>
-
                 <div className="form-floating my-3">
                     <input
                         type="text"
@@ -103,19 +141,17 @@ function EditDataMahasiswa() {
                     <input
                         type="text"
                         className="form-control"
-                        id="floatingName"
+                        id="floatingKelas"
                         placeholder="Kelas"
                         name="kelas"
                         value={form.kelas}
                         onChange={handleChange}
                     />
 
-                    <label htmlFor="floatingName">
+                    <label htmlFor="floatingKelas">
                         Kelas Mahasiswa
                     </label>
                 </div>
-
-                
 
                 <div className="form-floating mb-3">
                     <input
@@ -126,7 +162,7 @@ function EditDataMahasiswa() {
                         name="email"
                         value={form.email}
                         onChange={handleChange}
-                    />    
+                    />
 
                     <label htmlFor="floatingEmail">
                         Email Mahasiswa
